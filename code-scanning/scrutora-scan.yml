@@ -4,16 +4,16 @@
 # documentation.
 #
 # Scrutora Scan runs an offline, compliance-mapped scan of your code (DPDPA,
-# HIPAA, GDPR, PCI-DSS, RBI). No API key is required and your code never leaves
-# the runner. Findings are uploaded to GitHub Code Scanning as SARIF.
+# HIPAA, GDPR, PCI-DSS). No API key is required and your code never leaves the
+# runner. Findings are uploaded to GitHub Code Scanning as SARIF.
 # See https://github.com/Scrutora/scrutora-scan
 name: Scrutora Scan
 
 on:
   push:
-    branches: [ "$default-branch" ]
+    branches: [ $default-branch, $protected-branches ]
   pull_request:
-    branches: [ "$default-branch" ]
+    branches: [ $default-branch ]
   schedule:
     - cron: $cron-weekly
 
@@ -33,6 +33,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Scrutora Scan
+        id: scan
         uses: Scrutora/scrutora-scan@v1
         with:
           frameworks: dpdpa,hipaa
@@ -42,4 +43,4 @@ jobs:
         if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: scrutora.sarif
+          sarif_file: ${{ steps.scan.outputs.sarif-file }}
