@@ -1,0 +1,7 @@
+{
+  "name": "Scrutora Scan",
+  "creator": "Scrutora",
+  "description": "Offline DPDPA, HIPAA, GDPR, PCI-DSS and RBI compliance scanning. No API key, your code never leaves the runner. Results upload to Code Scanning as SARIF.",
+  "iconName": "scrutora",
+  "categories": ["Code Scanning", "Python", "JavaScript", "TypeScript", "Java", "Go"]
+}
