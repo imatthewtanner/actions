@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://avatars0.githubusercontent.com/u/44036562?s=100&v=4"/> 
+  <img src="https://avatars0.githubusercontent.com/u/cad80c2bf11affa21650276f5aea805c7e090067?s=100&v=4"/> 
 </p>
 
 ## Starter Workflows
@@ -82,7 +82,7 @@ Example `properties.json` file:
     "categories": ["Continuous integration", "JavaScript", "npm", "React", "Angular", "Vue"],
     "labels": ["preview"]
 }
-```
+
 
 For viewing the templates with `preview` label, provide query parameter `preview=true` to the  `new workflow` page URL. Eg. `https://github.com/<owner>/<repo_name>/actions/new?preview=true`.
 
