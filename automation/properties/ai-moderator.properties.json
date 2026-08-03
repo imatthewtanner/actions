@@ -1,0 +1,6 @@
+{
+    "name": "AI Moderator",
+    "description": "Scans new issues and comments for spam, link spam, and AI-generated content",
+    "iconName": "octicon ai-model",
+    "categories": ["Automation", "SDLC"]
+}
