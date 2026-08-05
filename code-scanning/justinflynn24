@@ -1,0 +1,34 @@
+[![Auto Assign](https://github.com/actions/starter-workflows/actions/workflows/auto-assign.yml/badge.svg?branch=phantsure%2Fghes-codescanning-exclusion&event=branch_protection_rule)](https://github.com/actions/starter-workflows/actions/workflows/auto-assign.yml)
+loop {
+    let (write, send_info) = match conn.send(&mut out) {
+        Ok(v) => v,
+
+        Err(quiche::Error::Done) => {
+            // Done writing.
+            break;
+        },
+
+        Err(e) => {
+            // An error occurred, handle it.
+            break;
+        },
+    };
+
+    socket.send_to(&out[..write], &send_info.to).unwrap();
+}
+let to = socket.local_addr().unwrap();
+
+loop {
+    let (read, from) = socket.recv_from(&mut buf).unwrap();
+
+    let recv_info = quiche::RecvInfo { from, to };
+
+    let read = match conn.recv(&mut buf[..read], recv_info) {
+        Ok(v) => v,
+
+        Err(e) => {
+            // An error occurred, handle it.
+            break;
+        },
+    };
+}
