@@ -1,0 +1,46 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+#
+# Scrutora Scan runs an offline, compliance-mapped scan of your code (DPDPA,
+# HIPAA, GDPR, PCI-DSS). No API key is required and your code never leaves the
+# runner. Findings are uploaded to GitHub Code Scanning as SARIF.
+# See https://github.com/Scrutora/scrutora-scan
+name: Scrutora Scan
+
+on:
+  push:
+    branches: [ $default-branch, $protected-branches ]
+  pull_request:
+    branches: [ $default-branch ]
+  schedule:
+    - cron: $cron-weekly
+
+permissions:
+  contents: read
+
+jobs:
+  scrutora-scan:
+    name: Scrutora compliance scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write   # to upload SARIF to Code Scanning
+      actions: read            # only needed by upload-sarif on private repos
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Scrutora Scan
+        id: scan
+        uses: Scrutora/scrutora-scan@v1
+        with:
+          frameworks: dpdpa,hipaa
+          fail-on: none          # report only; set to high/critical to gate the build
+
+      - name: Upload SARIF to Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif-file }}
