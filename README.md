@@ -14,7 +14,7 @@ These are the workflow files for helping people get started with GitHub Actions.
 
 Thank you for your interest in this GitHub repo, however, right now we are not taking contributions. 
 
-We continue to focus our resources on strategic areas that help our customers be successful while making developers' lives easier. While GitHub Actions remains a key part of this vision, we are allocating resources towards other areas of Actions and are not taking contributions to this repository at this time. The GitHub public roadmap is the best place to follow along for any updates on features we’re working on and what stage they’re in.
+We continue to focus our resources on strategic areas that help our customers be successful while making developers' lives easier. While GitHub Actions remains a key part of this vision, we are always looking to improve our processes and expand our offerings.
 
 We are taking the following steps to better direct requests related to GitHub Actions, including:
 
@@ -37,7 +37,7 @@ You are welcome to still raise bugs in this repo.
 * [pages](pages): solutions for Pages workflows
 * [icons](icons): svg icons for the relevant template
 
-Each workflow must be written in YAML and have a `.yml` extension. They also need a corresponding `.properties.json` file that contains extra metadata about the workflow (this is displayed in the GitHub.com UI).
+Each workflow must be written in YAML and have a `.yml` extension. They also need a corresponding `.properties.json` file that contains extra metadata about the workflow (this is displayed in the workflow selection experience).
 
 For example: `ci/django.yml` and `ci/properties/django.properties.json`.
 
@@ -45,9 +45,9 @@ For example: `ci/django.yml` and `ci/properties/django.properties.json`.
 
 * `name`: the name shown in onboarding. This property is unique within the repository.
 * `description`: the description shown in onboarding
-* `iconName`: the icon name in the relevant folder, for example, `django` should have an icon `icons/django.svg`. Only SVG is supported at this time. Another option is to use [octicon](https://primer.style/octicons/). The format to use an octicon is `octicon <<icon name>>`. Example: `octicon person`
+* `iconName`: the icon name in the relevant folder, for example, `django` should have an icon `icons/django.svg`. Only SVG is supported at this time. Another option is to use [octicons](https://primer.style/octicons/).
 * `creator`: creator of the template shown in onboarding. All the workflow templates from an author will have the same `creator` field.
-* `categories`: the categories that it will be shown under. Choose at least one category from the list [here](#categories). Further, choose the categories from the list of languages available [here](https://github.com/github/linguist/blob/master/lib/linguist/languages.yml) and the list of tech stacks available [here](https://github.com/github-starter-workflows/repo-analysis-partner/blob/main/tech_stacks.yml). When a user views the available templates, those templates that match the language and tech stacks will feature more prominently.
+* `categories`: the categories that it will be shown under. Choose at least one category from the list [here](#categories). Further, choose the categories from the list of languages available [here](https://github.com/github/codeql-action/blob/main/src/languages.ts).
 
 ### Categories
 * continuous-integration
@@ -72,7 +72,8 @@ These variables can be placed in the starter workflow and will be substituted as
 ## How to test templates before publishing
 
 ### Disable template for public
-The template author adds a `labels` array in the template's `properties.json` file with a label `preview`. This will hide the template from users, unless user uses query parameter `preview=true` in the URL.
+The template author adds a `labels` array in the template's `properties.json` file with a label `preview`. This will hide the template from users, unless user uses query parameter `preview=true` in the workflow creation page.
+
 Example `properties.json` file:
 ```json
 {

@@ -1,0 +1,10 @@
+{
+  "name": "SLSA Generator",
+  "description": "Generate SLSA level 3 provenance for your build artifacts to improve supply chain security",
+  "creator": "OpenSSF SLSA Framework",
+  "iconName": "octicon shield-check",
+  "categories": [
+    "security",
+    "supply-chain"
+  ]
+}
