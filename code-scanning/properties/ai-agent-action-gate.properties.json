@@ -1,0 +1,7 @@
+{
+    "name": "AI Agent ActionGate",
+    "creator": "A2ZSOC",
+    "description": "Scan and enforce zero-trust ActionBoundary governance, OWASP LLM06 validation, and cryptographic audit ledgers across AI agent pipelines.",
+    "iconName": "octicon shield-check",
+    "categories": ["Code Scanning", "Python", "JavaScript", "TypeScript", "Go"]
+}
