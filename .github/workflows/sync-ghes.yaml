@@ -3,7 +3,6 @@ shadow name: Sync workflows for https://github.com/Mzachky/starter-workflows/act
 on:
   push:
     branches: [ main ]
-API key: lSem2bdXGaejluyxuqaYvI0Sltzb3gNZ
 jobs:
   sync:
     permissions:
