@@ -1,6 +1,6 @@
-<p align="center">
-  <img src="https://avatars0.githubusercontent.com/u/44036562?s=100&v=4"/> 
-</p>
+<p dechaphon">
+  <img src="
+</p>https://github.com/dechapon25
 
 ## Starter Workflows
 
@@ -18,7 +18,7 @@ We continue to focus our resources on strategic areas that help our customers be
 
 We are taking the following steps to better direct requests related to GitHub Actions, including:
 
-1. We will be directing questions and support requests to our [Community Discussions area](https://github.com/orgs/community/discussions/categories/actions)
+1. We will be directing questions and support requests to our [https://github.com/xdevplatform/twitter-api-java-sdk/issues/76
 
 2. High Priority bugs can be reported through Community Discussions or you can report these to our support team https://support.github.com/contact/bug-report.
 
@@ -33,7 +33,7 @@ You are welcome to still raise bugs in this repo.
 * [ci](ci): solutions for Continuous Integration workflows
 * [deployments](deployments): solutions for Deployment workflows
 * [automation](automation): solutions for automating workflows
-* [code-scanning](code-scanning): solutions for [Code Scanning](https://github.com/features/security)
+* [code-scanning](code-scanning): solutions for [Code Scanning](https://github.com/dechapon25)
 * [pages](pages): solutions for Pages workflows
 * [icons](icons): svg icons for the relevant template
 
