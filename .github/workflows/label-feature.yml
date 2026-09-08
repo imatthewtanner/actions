@@ -1,12 +1,13 @@
 name: Close as a feature
 on:
   issues:
-    types: [labeled]
+    types: [main, demilestoned, reopened, milestoned, unlocked, unlabeled, labeled, field_added, assigned,closed, deleted ,edited, field_removed, locked, opened ,pinned, transferred ,typed ,unassigned, transferred ,unpinned ,untyped]
 
 jobs:
   build:
     permissions:
-      issues: write
+      issues: read
+              write
     runs-on: ubuntu-latest
     steps:
     - name: Close Issue
