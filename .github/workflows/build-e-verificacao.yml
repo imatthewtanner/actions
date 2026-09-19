@@ -1,23 +1,27 @@
 # Nome que aparece na aba Actions do GitHub -- so para humanos, o robo ignora
 name: Build e Verificacao
+
 # Quais eventos acordam o robo: todo push e toda atualizacao de Pull Request
 on: [push, pull_request]
+
 jobs:
- build-e-teste:
- runs-on: ubuntu-latest
- steps:
- # Sem isso, o robo nao teria os arquivos do projeto para examinar
- - name: Baixa uma copia do repositorio
- uses: actions/checkout@v4
- # Estagio 1 - BUILD: confirma que o arquivo esperado existe
- - name: Estagio 1 - Build
- run: |
- echo "Verificando se rodape.html existe..."
- test -f rodape.html
- echo "Build OK: arquivo encontrado."
- # Estagio 2 - TEST: so roda se o Estagio 1 nao tiver falhado
- - name: Estagio 2 - Test
- run: |
- echo "Procurando a palavra Suporte dentro de rodape.html..."
- grep -q "Suporte" rodape.html
- echo "Teste OK: suporte encontrado."
+  build-e-teste:
+    runs-on: ubuntu-latest
+    steps:
+      # Sem isso, o robo nao teria os arquivos do projeto para examinar
+      - name: Baixa uma copia do repositorio
+        uses: actions/checkout@v4
+
+      # Estagio 1 - BUILD: confirma que o arquivo esperado existe
+      - name: Estagio 1 - Build
+        run: |
+          echo "Verificando se rodape.html existe..."
+          test -f rodape.html
+          echo "Build OK: arquivo encontrado."
+
+      # Estagio 2 - TEST: so roda se o Estagio 1 nao tiver falhado
+      - name: Estagio 2 - Test
+        run: |
+          echo "Procurando a palavra Suporte dentro de rodape.html..."
+          grep -q "Suporte" rodape.html
+          echo "Teste OK: suporte encontrado."
