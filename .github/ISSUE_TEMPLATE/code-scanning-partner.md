@@ -1,8 +1,9 @@
 ---
 name: Code Scanning onboarding
-about: Captures all the information and tasks required to onboard a 3rd party project into Code Scanning
+about: Captures all the information and tasks required to onboard a 3rd party project
+  into Code Scanning
 title: 'Code Scanning Partner: '
-labels: 'code scanning'
+labels: ''
 assignees: ''
 
 ---
