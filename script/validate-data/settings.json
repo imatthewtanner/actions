@@ -2,7 +2,6 @@
   "folders": [
     "../../ci",
     "../../automation",
-    "../../deployments",
     "../../code-scanning",
     "../../pages"
   ],
@@ -14,10 +13,6 @@
     {
       "path": "../../automation",
       "categories": ["Automation"]
-    },
-    {       
-      "path": "../../deployments",
-      "categories": ["Deployment"]
     },
     { 
       "path": "../../code-scanning",
