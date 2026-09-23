@@ -19,6 +19,8 @@ interface WorkflowProperties {
   iconName?: string;
 
   categories: string[] | null;
+
+  creator?: string;
 }
 
 interface WorkflowsCheckResult {
@@ -28,12 +30,14 @@ interface WorkflowsCheckResult {
 
 async function checkWorkflows(
   folders: string[],
-  enabledActions: string[]
+  enabledActions: string[],
+  partners: string[]
 ): Promise<WorkflowsCheckResult> {
   const result: WorkflowsCheckResult = {
     compatibleWorkflows: [],
     incompatibleWorkflows: [],
   };
+  const partnersSet = new Set(partners.map((x) => x.toLowerCase()));
 
   for (const folder of folders) {
     const dir = await fs.readdir(folder, {
@@ -41,7 +45,7 @@ async function checkWorkflows(
     });
 
     for (const e of dir) {
-      if (e.isFile()) {
+      if (e.isFile() && extname(e.name) === ".yml") {
         const workflowFilePath = join(folder, e.name);
         const workflowId = basename(e.name, extname(e.name));
         const workflowProperties: WorkflowProperties = require(join(
@@ -51,11 +55,10 @@ async function checkWorkflows(
         ));
         const iconName: string | undefined = workflowProperties["iconName"];
 
-        const isBlankTemplate = workflowId === "blank";
-        const partnerWorkflow = workflowProperties.categories === null;
+        const isPartnerWorkflow = workflowProperties.creator ? partnersSet.has(workflowProperties.creator.toLowerCase()) : false;
 
         const enabled =
-          (isBlankTemplate || !partnerWorkflow) &&
+          !isPartnerWorkflow &&
           (await checkWorkflow(workflowFilePath, enabledActions));
 
         const workflowDesc: WorkflowDesc = {
@@ -90,7 +93,6 @@ async function checkWorkflow(
 ): Promise<boolean> {
   // Create set with lowercase action names for easier, case-insensitive lookup
   const enabledActionsSet = new Set(enabledActions.map((x) => x.toLowerCase()));
-
   try {
     const workflowFileContent = await fs.readFile(workflowPath, "utf8");
     const workflow = safeLoad(workflowFileContent);
@@ -102,7 +104,8 @@ async function checkWorkflow(
         if (!!step.uses) {
           // Check if allowed action
           const [actionName, _] = step.uses.split("@");
-          if (!enabledActionsSet.has(actionName.toLowerCase())) {
+          const actionNwo = actionName.split("/").slice(0, 2).join("/");
+          if (!enabledActionsSet.has(actionNwo.toLowerCase())) {
             console.info(
               `Workflow ${workflowPath} uses '${actionName}' which is not supported for GHES.`
             );
@@ -126,7 +129,8 @@ async function checkWorkflow(
 
     const result = await checkWorkflows(
       settings.folders,
-      settings.enabledActions
+      settings.enabledActions,
+      settings.partners
     );
 
     console.group(
@@ -148,18 +152,18 @@ async function checkWorkflow(
     console.log("Switch to GHES branch");
     await exec("git", ["checkout", "ghes"]);
 
-    // In order to sync from master, we might need to remove some workflows, add some
+    // In order to sync from main, we might need to remove some workflows, add some
     // and modify others. The lazy approach is to delete all workflows first, and then
-    // just bring the compatible ones over from the master branch. We let git figure out
+    // just bring the compatible ones over from the main branch. We let git figure out
     // whether it's a deletion, add, or modify and commit the new state.
     console.log("Remove all workflows");
     await exec("rm", ["-fr", ...settings.folders]);
     await exec("rm", ["-fr", "../../icons"]);
 
-    console.log("Sync changes from master for compatible workflows");
+    console.log("Sync changes from main for compatible workflows");
     await exec("git", [
       "checkout",
-      "master",
+      "main",
       "--",
       ...Array.prototype.concat.apply(
         [],
