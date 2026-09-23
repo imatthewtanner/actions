@@ -6,9 +6,17 @@ on:
     branches: [main, master]
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: copilot-setup-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  setup:
+  validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
@@ -19,12 +27,26 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            **/package-lock.json
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Run lint
+        run: npm run lint --if-present
 
       - name: Validate build
         run: npm run build
 
       - name: Run tests
-        run: npm test -- --runInBand
+        run: npm test -- --runInBand --ci
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          if-no-files-found: ignore
