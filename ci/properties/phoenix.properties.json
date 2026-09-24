@@ -1,6 +1,0 @@
-{
-    "name": "Phoenix",
-    "description": "Build and test an Elixir Phoenix project.",
-    "iconName": "phoenix",
-    "categories": ["Elixir", "Erlang", "Phoenix"]
-}
